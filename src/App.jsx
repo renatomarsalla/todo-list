@@ -22,62 +22,63 @@ import { v4 as id } from 'uuid';
 // ];
 
 function App() {
-  const [tasks, setTasks] = useState([
-    {
-      id: id(),
-      content: 'Desafio inicial',
-      isFinished: false
-    },
-    {
-      id: id(),
-      content: 'Desafio intermediário',
-      isFinished: false
-    }
-  ]);
+	const [tasks, setTasks] = useState([
+		{
+			id: id(),
+			content: 'Desafio inicial',
+			isFinished: false
+		},
+		{
+			id: id(),
+			content: 'Desafio intermediário',
+			isFinished: false
+		}
+	]);
 
-  const [newTasks, newSetTasks] = useState('');
+	function createNewTask(taskTitle) {
+		setTasks([
+			...tasks,
+			{
+				id: id(),
+				content: taskTitle,
+				isFinished: false
+			}
+		]);
+	}
 
-  function getTextInput() {
-    newSetTasks(event.target.value);
-  }
+	return (
+		<div>
+			<Header />
+			<div className={styles.page}>
+				<AddTask createNewTask={createNewTask} />
 
-  function createNewTask() {
-    setTasks([...tasks, newTasks]);
-  }
+				<div className={styles.task}>
+					<div className={styles.tasksCreatedAndFinished}>
+						<div className={styles.created}>
+							<span>Tarefas criadas</span>
+							<span>0</span>
+						</div>
 
-  return (
-    <div>
-      <Header />
-      <div className={styles.page}>
-        <AddTask createNewTask={createNewTask} getTextInput={getTextInput} />
+						<div className={styles.finished}>
+							<span>Concluidas</span>
+							<span>0 de 0</span>
+						</div>
+					</div>
 
-        <div className={styles.task}>
-          <div className={styles.tasksCreatedAndFinished}>
-            <div className={styles.created}>
-              <span>Tarefas criadas</span>
-              <span>0</span>
-            </div>
-
-            <div className={styles.finished}>
-              <span>Concluidas</span>
-              <span>0 de 0</span>
-            </div>
-          </div>
-
-          {tasks.map(task => {
-            return (
-              <Task
-                key={id()}
-                id={task.id}
-                content={task.content}
-                isFinished={task.isFinished}
-              />
-            );
-          })}
-        </div>
-      </div>
-    </div>
-  );
+					{tasks.map(task => {
+						return (
+							<Task
+								key={id()}
+								id={task.id}
+								content={task.content}
+								isFinished={task.isFinished}
+							/>
+						);
+					})}
+				</div>
+			</div>
+		</div>
+	);
 }
 
 export { App };
