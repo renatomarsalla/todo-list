@@ -7,6 +7,7 @@ function AddTask({ createNewTask }) {
   const [newTaskTitle, setNewTaskTitle] = useState('');
 
   function handleCreateNewTask() {
+    console.log(newTaskTitle);
     createNewTask(newTaskTitle);
     setNewTaskTitle('');
   }

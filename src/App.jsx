@@ -15,6 +15,9 @@ function App() {
   const [tasksFinished, setTaskFinished] = useState([]);
 
   function createNewTask(taskTitle) {
+    if (taskTitle === '' || taskTitle === ' ') {
+      return alert('Preencha com uma tarefa válida');
+    }
     setTasks([
       ...tasks,
       {
@@ -32,6 +35,7 @@ function App() {
 
     setTasks(tasksWithoutTaskDeleted);
 
+    //filtra para aparecer as finalizadas
     const tasksFinished2 = tasksWithoutTaskDeleted.filter(task => {
       return task.isFinished === true;
     });
@@ -39,23 +43,25 @@ function App() {
   }
 
   function statusTask(idTask) {
-    // console.log(idTask);
+    //filtro a task que foi clicada
     const taskWithThisIdTask = tasks.filter(task => {
       return task.id === idTask;
     });
 
+    //troco o status da task
     const changeStatus = taskWithThisIdTask.map(task => {
       return (task.isFinished = true);
     });
 
+    //seto as task
     setTasks([...tasks]);
-    // console.log(changeStatus);
 
+    //filtro as que estao com status true
     const tasksFinished2 = tasks.filter(task => {
       return task.isFinished === true;
     });
+    //seto em um array as tasks
     setTaskFinished(tasksFinished2);
-    // console.log(tasksFinished.length);
   }
 
   return (
