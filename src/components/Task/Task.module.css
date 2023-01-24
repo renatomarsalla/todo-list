@@ -33,3 +33,11 @@
   color: var(--placeholder);
   cursor: pointer;
 }
+
+.checked {
+  text-decoration: line-through;
+}
+
+.noChecked {
+  text-align: justify;
+}
