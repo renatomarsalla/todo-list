@@ -1,6 +1,7 @@
 import { Header } from './components/Header/Header';
 import { AddTask } from './components/AddTask/AddTask';
 import { Task } from './components/Task/Task';
+import { NoTask } from './components/NoTask/NoTask';
 
 import './global.css';
 import styles from './App.module.css';
@@ -8,22 +9,10 @@ import { useState } from 'react';
 
 import { v4 as id } from 'uuid';
 
-// const tasks = [
-//   {
-//     id: id(),
-//     content: 'Desafio inicial',
-//     isFinished: false
-//   },
-//   {
-//     id: id(),
-//     content: 'Desafio intermediário',
-//     isFinished: false
-//   }
-// ];
-
 function App() {
   //alterei aqui, voltar para tasks
   const [tasks, setTasks] = useState([]);
+  const [tasksFinished, setTaskFinished] = useState([]);
 
   function createNewTask(taskTitle) {
     setTasks([
@@ -42,11 +31,15 @@ function App() {
     });
 
     setTasks(tasksWithoutTaskDeleted);
+
+    const tasksFinished2 = tasksWithoutTaskDeleted.filter(task => {
+      return task.isFinished === true;
+    });
+    setTaskFinished(tasksFinished2);
   }
 
-  const [tasksFinished, setTaskFinished] = useState([]);
   function statusTask(idTask) {
-    console.log(idTask);
+    // console.log(idTask);
     const taskWithThisIdTask = tasks.filter(task => {
       return task.id === idTask;
     });
@@ -56,7 +49,7 @@ function App() {
     });
 
     setTasks([...tasks]);
-    // console.log(tasks);
+    // console.log(changeStatus);
 
     const tasksFinished2 = tasks.filter(task => {
       return task.isFinished === true;
@@ -83,14 +76,14 @@ function App() {
               <span>{`${tasksFinished.length} de ${tasks.length}`}</span>
             </div>
           </div>
-
+          {tasks.length === 0 && <NoTask />}
           {tasks.map(task => {
             return (
               <Task
                 key={task.id}
                 id={task.id}
                 content={task.content}
-                isFinished={task.isFinished}
+                // isFinished={task.isFinished}
                 deleteTask={deleteTask}
                 statusTask={statusTask}
               />

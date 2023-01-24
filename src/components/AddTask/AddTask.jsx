@@ -5,6 +5,7 @@ import { useState } from 'react';
 
 function AddTask({ createNewTask }) {
   const [newTaskTitle, setNewTaskTitle] = useState('');
+
   function handleCreateNewTask() {
     createNewTask(newTaskTitle);
     setNewTaskTitle('');
